@@ -56,7 +56,7 @@ private fun SupplierListTopAppBar(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showActiveDialog by remember { mutableStateOf(false) }
     var navigateToChangelog by remember { mutableStateOf(false) }
-    var isActivate : Boolean? by remember { mutableStateOf(null) }
+    var isActivate: Boolean? by remember { mutableStateOf(null) }
 
     val listMenu = getListMenu(uiState)
 

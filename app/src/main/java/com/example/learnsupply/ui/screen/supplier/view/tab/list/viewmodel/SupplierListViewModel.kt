@@ -51,6 +51,7 @@ class SupplierListViewModel @Inject constructor(
             onResetSelect = ::onResetSelect,
             onUpdateActiveById = ::onUpdateActiveById,
             onShowActionSheet = ::onShowActionSheet,
+            onResetMessageState = ::resetMessageState
         )
     }
 
@@ -71,17 +72,20 @@ class SupplierListViewModel @Inject constructor(
                             isLoadingOverlay = false,
                             isLoading = false,
                             itemSelected = emptyList(),
-                            activateState = true
+                            activateState = true,
+                            activation = true
                         )
                     }
                     Log.d("SupplierListViewModel 2", "onUpdateActiveById: Success")
+                    initSupplier()
                 }
 
                 is Result.Error -> {
                     _uiState.value = _uiState.value.copy(
                         isLoadingOverlay = false,
                         isLoading = false,
-                        activateState = false
+                        activateState = false,
+                        activation = false,
                     )
                     Log.d("SupplierListViewModel 2", "onUpdateActiveById: Error")
                 }
@@ -184,7 +188,7 @@ class SupplierListViewModel @Inject constructor(
                             deleteState = true
                         )
                     }
-
+                    initSupplier()
                 }
 
                 is Result.Error -> {
@@ -271,5 +275,12 @@ class SupplierListViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun resetMessageState() {
+        _uiState.value = _uiState.value.copy(
+            deleteState = null,
+            activateState = null
+        )
     }
 }

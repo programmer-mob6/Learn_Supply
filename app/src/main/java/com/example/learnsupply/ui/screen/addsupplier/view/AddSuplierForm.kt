@@ -55,6 +55,7 @@ fun AddSuplierForm(
         isReset = uiState.formData == AddSupplierFormData() && !isReset
     }
 
+    Log.d("AddSuplierForm", "${uiState.formData}")
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -108,10 +109,11 @@ fun AddSuplierForm(
                                 )
                             },
                             items = listOf(
-                                OptionData("Laptop","Laptop"),
-                                OptionData("Kulkas","Kulkas"),
-                                OptionData("TV","TV"),
-                                OptionData("AC","AC"),
+                                OptionData("Laptop", "Laptop"),
+                                OptionData("Kulkas", "Kulkas"),
+                                OptionData("TV", "TV"),
+                                OptionData("AC", "AC"),
+                                OptionData("PC", "PC"),
                             ),//uiState.formOption.itemName,
                             placeHolder = stringResource(R.string.title_item_name),
                             value = item.itemName,
@@ -208,7 +210,7 @@ fun AddSuplierForm(
                         )
                     )
                 },
-                items =  listOf(
+                items = listOf(
                     OptionData("DKI Jakarta", "DKI Jakarta"),
                     OptionData("Jawa Barat", "Jawa Barat"),
                     OptionData("Jawa Tengah", "Jawa Tengah"),
@@ -306,6 +308,7 @@ fun AddSuplierForm(
                 maxChar = 30,
                 required = true
             )
+
             val phonePic = uiState.formData.picNumber.split(" ")
             PhoneNumberTextField(
                 onValueChange = { dialCode, value ->

@@ -3,6 +3,7 @@ package com.example.learnsupply.ui.screen.supplier.component
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.example.apiservices.data.model.supplier.SupplierEntity
+import com.example.learnsupply.R
 import com.tagsamurai.tscomponents.alertdialog.AlertDialog
 import com.tagsamurai.tscomponents.model.Severity
 import com.tagsamurai.tscomponents.theme.theme
@@ -16,27 +17,33 @@ fun ActivateItemDialog(
     showDialog: Boolean,
     onConfirm: (List<SupplierEntity>) -> Unit
 ) {
-    val rawContent = if (supplier.size > 1) {
-        stringResource(com.example.learnsupply.R.string.message_bulk_inactivate_supplier, "${supplier.size} supplier(s)")
-    } else {
-        stringResource(com.example.learnsupply.R.string.message_single_inactivate_supplier, supplier.firstOrNull()?.companyName ?: "")
+    val status = if (isActive) "Activate" else "Inactivate"
+
+    val messageResId = when {
+        supplier.size > 1 && isActive -> R.string.message_bulk_activate_supplier
+        supplier.size > 1 && !isActive -> R.string.message_bulk_inactivate_supplier
+        isActive -> R.string.message_single_activate_supplier
+        else -> R.string.message_single_inactivate_supplier
     }
+
+    val rawContent = stringResource(
+        messageResId,
+        if (supplier.size > 1) "${supplier.size} supplier(s)" else supplier.firstOrNull()?.companyName
+            ?: ""
+    )
 
     val message = rawContent.generateAnnotated()
 
+
     val buttonConfirmText = if (isActive) { //suplierStatus.firstOrNull() == "Active"
-        stringResource(com.example.learnsupply.R.string.title_activate)
-//        stringResource(com.example.learnsupply.R.string.title_inactivate)
+        stringResource(R.string.title_activate)
     } else {
-//        stringResource(com.example.learnsupply.R.string.title_activate)
-        stringResource(com.example.learnsupply.R.string.title_inactivate)
+        stringResource(R.string.title_inactivate)
     }
 
-    val buttonSeverity = if (isActive) { //suplierStatus.firstOrNull() == "Active"
+    val buttonSeverity = if (isActive) {
         Severity.SUPPLY
-//        Severity.DANGER
     } else {
-//        Severity.SUPPLY
         Severity.DANGER
     }
 
@@ -50,10 +57,13 @@ fun ActivateItemDialog(
             },
             icon = com.tagsamurai.tscomponents.R.drawable.ic_error_warning_line_24dp,
             iconColor = theme.danger,
-            title = stringResource(com.example.learnsupply.R.string.title_inactivate_supplier),
-            textButtonCancel = stringResource(com.example.learnsupply.R.string.title_cancel),
-            textButtonConfirm = buttonConfirmText, //stringResource(com.example.learnsupply.R.string.title_inactivate),
-            severity = buttonSeverity,//Severity.DANGER,
+            title = stringResource(
+                R.string.title_set_activation_supplier,
+                status
+            ),
+            textButtonCancel = stringResource(R.string.title_cancel),
+            textButtonConfirm = buttonConfirmText,
+            severity = buttonSeverity,
             content = message
         )
     }

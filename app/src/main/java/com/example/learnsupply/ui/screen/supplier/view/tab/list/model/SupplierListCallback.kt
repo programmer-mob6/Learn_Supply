@@ -14,5 +14,6 @@ data class SupplierListCallback(
     val onDownload: (String) -> Unit = {},
     val onResetSelect: () -> Unit = {},
 
-    val onShowActionSheet: (Boolean) -> Unit = {}
+    val onShowActionSheet: (Boolean) -> Unit = {},
+    val onResetMessageState: () -> Unit = {}
 )

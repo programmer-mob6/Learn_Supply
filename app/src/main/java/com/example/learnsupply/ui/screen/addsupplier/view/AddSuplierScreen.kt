@@ -1,6 +1,5 @@
 package com.example.learnsupply.ui.screen.addsupplier.view
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,11 +22,9 @@ import com.example.learnsupply.ui.screen.addsupplier.uistate.AddSuplierUiState
 import com.tagsamurai.tscomponents.button.SingleActionButton
 import com.tagsamurai.tscomponents.checkbox.CustomCheckbox
 import com.tagsamurai.tscomponents.handlestate.HandleState
-import com.tagsamurai.tscomponents.model.TypeButton
 import com.tagsamurai.tscomponents.pagetitle.PageTitle
 import com.tagsamurai.tscomponents.scaffold.Scaffold
 import com.tagsamurai.tscomponents.snackbar.OnShowSnackBar
-import com.tagsamurai.tscomponents.textfield.TextField
 import com.tagsamurai.tscomponents.theme.theme
 import com.tagsamurai.tscomponents.topappbar.TopAppBar
 import com.tagsamurai.tscomponents.utils.Spacer.heightBox
@@ -89,9 +86,10 @@ fun AddSuplierScreen(
     ) {
         Column {
             PageTitle(title = titleText)
-            Box(modifier = Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState())
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
             ) {
                 AddSuplierForm(
                     uiState = uiState,
@@ -104,8 +102,6 @@ fun AddSuplierScreen(
             SingleActionButton(
                 onButtonConfirm = {
                     callback.onSubmitForm()
-//                    callback.onResetMessageState()
-//                    if (!uiState.isStayOnForm) onNavigateUp()
                 },
                 label = submitText,
                 contentHeader = {

@@ -54,7 +54,7 @@ fun DetailScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.getDetailReader()
+        viewModel.getDetailSupplier()
     }
 
     DetailHomeScreen(
@@ -70,9 +70,9 @@ fun DetailScreen(
 @Composable
 private fun DetailHomeScreen(
 //    itemId: String,
-    uiState : SupplierDetailUiState,
+    uiState: SupplierDetailUiState,
     navigateUp: () -> Unit,
-    onShowSnackbar: (String, Boolean) -> Unit,
+    onShowSnackbar: OnShowSnackBar,
     navigateTo: (String) -> Unit,
     onChangeCurTab: (Int) -> Unit,
 ) {
@@ -85,6 +85,7 @@ private fun DetailHomeScreen(
         topBar = {
             SupplierDetailTopAppBar(
                 navigateUp = navigateUp,
+                onShowSnackbar = onShowSnackbar,
                 curTab = uiState.curTab
             )
         }

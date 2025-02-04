@@ -98,6 +98,13 @@ fun SupplierDetailBottomSheet(
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
+                    label = stringResource(id = R.string.state),
+                    content = supplierDetail.state,//"Indonesia",//supplierDetail.name.ifNullOrBlank { "-" },
+                    style = bodyStyle,
+                    color = theme.bodyText
+                )
+                itemGap8.heightBox()
+                DetailRecordBottomSheet(
                     label = stringResource(id = R.string.city),
                     content = supplierDetail.city,//"DKI Jakarta",//supplierDetail.name.ifNullOrBlank { "-" },
                     style = bodyStyle,

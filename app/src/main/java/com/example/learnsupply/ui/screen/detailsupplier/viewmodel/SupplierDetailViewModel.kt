@@ -70,7 +70,7 @@ class SupplierDetailViewModel @Inject constructor(
 
     }
 
-    fun getDetailReader() {
+    fun getDetailSupplier() {
         _uiState.update {
             it.copy(
                 isLoading = true

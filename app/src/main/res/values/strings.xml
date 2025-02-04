@@ -16,13 +16,15 @@
     <string name="title_inactivate">Inactivate</string>
     <string name="title_activate">Activate</string>
     <string name="title_delete_supplier">Delete Supplier</string>
-    <string name="title_inactivate_supplier">Inactivate Supplier</string>
-    <string name="title_activate_supplier">Activate Supplier</string>
+    <string name="title_set_activation_supplier">%s Supplier</string>
     <string name="title_cancel">Cancel</string>
+
     <string name="message_single_delete_supplier">|%1$s| will be deleted. Are you sure you want to delete it?</string>
     <string name="message_bulk_delete_supplier">You have selected |%1$s| to be deleted. Are you sure you want to delete it?</string>
+
     <string name="message_single_inactivate_supplier">|%1$s| will be inactivated. Are you sure you want to inactivate it?</string>
     <string name="message_bulk_inactivate_supplier">You have selected |%1$s| to be inactivated. Are you sure you want to inactivate it?</string>
+
     <string name="message_single_activate_supplier">|%1$s| will be activated. Are you sure you want to activate it?</string>
     <string name="message_bulk_activate_supplier">You have selected |%1$s| to be activated. Are you sure you want to activate it?</string>
 
@@ -59,6 +61,6 @@
 
     <string name="message_success_delete_supplier">Success: Success, supplier has been deleted.</string>
     <string name="message_error_delete_supplier">Error, failed to delete supplier. Please check your connection and try again.</string>
-    <string name="message_success_activate_supplier">Success: Success, supplier has been activated.</string>
+    <string name="message_success_activate_supplier">Success: Success, supplier has been %s.</string>
     <string name="message_error_activate_supplier">Error: Error, failed to activate supplier. Please check your connection and try again.</string>
 </resources>

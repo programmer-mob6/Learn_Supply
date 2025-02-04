@@ -1,14 +1,13 @@
 package com.example.learnsupply.ui.screen.addsupplier.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apiservices.base.Result
 import com.example.apiservices.data.source.network.model.request.PostSupplierRequestBody
 import com.example.apiservices.domain.AddSupplierUseCase
 import com.example.apiservices.domain.GetSupplierByIdUseCase
-import com.example.apiservices.domain.GetSupplierUseCase
+import com.example.apiservices.domain.UpdateSupplierByIdUseCase
 import com.example.learnsupply.ui.screen.addsupplier.model.AddSupplierCallback
 import com.example.learnsupply.ui.screen.addsupplier.model.AddSupplierFormData
 import com.example.learnsupply.ui.screen.addsupplier.model.AddSupplierFormError
@@ -26,20 +25,27 @@ import javax.inject.Inject
 @HiltViewModel
 class AddSupplierViewModel @Inject constructor(
     private val getSupplierByIdUseCase: GetSupplierByIdUseCase,
-    private val getSupplierUseCase: GetSupplierUseCase,
+//    private val getSupplierUseCase: GetSupplierUseCase,
     private val addSupplierUseCase: AddSupplierUseCase,
-//    private val updateSupplierByIdUseCase: UpdateSupplierByIdUseCase,
+    private val updateSupplierByIdUseCase: UpdateSupplierByIdUseCase,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(AddSuplierUiState())
     val uiState = _uiState.asStateFlow()
 
     fun init(id: String? = null) {
-//        updateListSuppliedItem(AddSupplierSuppliedItem())
+        _uiState.value = _uiState.value.copy(
+            assetId = "",
+            formData = AddSupplierFormData(),
+            formError = AddSupplierFormError(),
+            submitState = null,
+            isEditForm = false
+        )
+
         updateFormData(
             formData = AddSupplierFormData(suppliedItem = listOf(AddSupplierSuppliedItem(id = _uiState.value.suppliedItemIndex))),
-//            suppliedItem = AddSupplierSuppliedItem()
         )
+
         id?.let {
             getSupplierById(id)
         }
@@ -56,11 +62,18 @@ class AddSupplierViewModel @Inject constructor(
                             isLoadingOverlay = false,
                             formData = AddSupplierFormData(
                                 companyName = result.data.companyName,
-//                                itemName = result.data.suppliedItemName.first(),
+//                                itemName = result.data.suppliedItemName.,
 //                                itemSku = result.data.suppliedItemSku,
                                 country = result.data.country,
                                 state = result.data.state,
-                                city = result.data.city
+                                city = result.data.city,
+//                                suppliedItem = ,
+                                zip = result.data.zipCode.toInt(),
+                                companyAddress = result.data.companyAddress,
+                                companyNumber = result.data.companyPhone,
+                                picName = result.data.pic,
+                                picNumber = result.data.picPhone,
+                                picEmail = result.data.picEmail,
                             ),
                             assetId = id,
                             isEditForm = true
@@ -153,16 +166,15 @@ class AddSupplierViewModel @Inject constructor(
                     item = it.itemName,
                     sku = it.itemSku
                 )
-            } ,
+            },
             companyphone = data.companyNumber,
             companyaddress = data.companyAddress
         )
-        val domain = addSupplierUseCase(body)
-//        if (_uiState.value.isEditForm) {
-//            updateSupplierByIdUseCase(_uiState.value.assetId, body)
-//        } else {
-//            addSupplierUseCase(body)
-//        }
+        val domain = if (_uiState.value.isEditForm) {
+            updateSupplierByIdUseCase(body)
+        } else {
+            addSupplierUseCase(body)
+        }
 
         domain.onEach { result ->
             _uiState.update { currData ->

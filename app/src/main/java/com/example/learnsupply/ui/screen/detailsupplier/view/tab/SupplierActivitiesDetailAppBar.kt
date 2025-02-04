@@ -8,17 +8,20 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.apiservices.data.model.supplier.SupplierEntity
+import com.example.learnsupply.ui.screen.addsupplier.view.AddSupplierDialog
 import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.example.learnsupply.ui.screen.detailsupplier.view.SupplierFilterDetailSheet
 import com.example.learnsupply.ui.screen.detailsupplier.viewmodel.SupplierDetailViewModel
 import com.example.learnsupply.ui.screen.supplier.component.DeleteItemDialog
 import com.tagsamurai.tscomponents.model.Menu
+import com.tagsamurai.tscomponents.snackbar.OnShowSnackBar
 import com.tagsamurai.tscomponents.textfield.SearchFieldTopAppBar
 import com.tagsamurai.tscomponents.topappbar.TopAppBar
 
 @Composable
 fun SupplierActivitiesDetailAppBar(
     navigateUp: () -> Unit,
+    onShowSnackbar: OnShowSnackBar,
     viewmodel: SupplierDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewmodel.uiState.collectAsStateWithLifecycle()
@@ -66,19 +69,20 @@ fun SupplierActivitiesDetailAppBar(
         onDismissRequest = { showActionSheet = it },
         uiState = uiState,
         showSheet = showActionSheet,
+        onEdit = { showCreateDialog = true },
         onDelete = { showDeleteDialog = true },
     )
 
-//    AddSupplierDialog(
-//        onDismissRequest = { state ->
-//            showCreateDialog = state
-//            data = null
-//        },
-//        showDialog = showCreateDialog,
-//        id = data?.id,
-//        onShowSnackBar = onShowSnackbar,
-//        onSuccess = supplierViewModel.onRefresh
-//    )
+    AddSupplierDialog(
+        onDismissRequest = { state ->
+            showCreateDialog = state
+            data = null
+        },
+        showDialog = showCreateDialog,
+        id = data?.id,
+        onShowSnackBar = onShowSnackbar,
+        onSuccess = {}
+    )
 
     DeleteItemDialog(
         onDismissRequest = { showDeleteDialog = it },

@@ -16,9 +16,15 @@ fun DeleteItemDialog(
     onConfirm: (List<SupplierEntity>) -> Unit
 ) {
     val rawContent = if (supplier.size > 1) {
-        stringResource(com.example.learnsupply.R.string.message_bulk_delete_supplier, "${supplier.size} Data")
+        stringResource(
+            com.example.learnsupply.R.string.message_bulk_delete_supplier,
+            "${supplier.size} Data"
+        )
     } else {
-        stringResource(com.example.learnsupply.R.string.message_single_delete_supplier, supplier.firstOrNull()?.companyName ?: "")
+        stringResource(
+            com.example.learnsupply.R.string.message_single_delete_supplier,
+            supplier.firstOrNull()?.companyName ?: ""
+        )
     }
     val message = rawContent.generateAnnotated()
 

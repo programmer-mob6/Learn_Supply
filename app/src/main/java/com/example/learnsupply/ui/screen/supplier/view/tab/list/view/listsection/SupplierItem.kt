@@ -1,6 +1,5 @@
 package com.example.learnsupply.ui.screen.supplier.view.tab.list.view.listsection
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +23,6 @@ import com.example.learnsupply.ui.screen.supplier.view.tab.list.uistate.Supplier
 import com.example.learnsupply.ui.screen.supplier.view.tab.list.view.SupplierActionSheet
 import com.tagsamurai.tscomponents.card.AdaptiveCardItem
 import com.tagsamurai.tscomponents.chip.Chip
-import com.tagsamurai.tscomponents.loading.LoadingOverlay
 import com.tagsamurai.tscomponents.model.Severity
 import com.tagsamurai.tscomponents.model.TypeChip
 import com.tagsamurai.tscomponents.textfield.UserRecord
@@ -49,7 +47,7 @@ fun SupplierItem(
     var showActionSheet by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showActiveDialog by remember { mutableStateOf(false) }
-    var isActivate : Boolean? by remember { mutableStateOf(null) }
+    var isActivate: Boolean? by remember { mutableStateOf(null) }
     val isSelected = uiState.itemSelected.contains(item)
     AdaptiveCardItem(
         onClick = {
@@ -94,7 +92,6 @@ fun SupplierItem(
                     2.widthBox()
                 }
                 if (item.suppliedItemSku.size > 2) {
-//                    4.widthBox()
                     Text(
                         text = stringResource(
                             R.string.text_placeholder_more_s,
@@ -136,7 +133,7 @@ fun SupplierItem(
         onUpdateActive = {
             isActivate = it
             showActiveDialog = true
-                         },
+        },
         onEdit = {
             showActionSheet = false
             onEditAsset(item)

@@ -19,7 +19,6 @@ import com.example.apiservices.data.model.supplier.SupplierEntity
 import com.example.learnsupply.R
 import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.tagsamurai.tscomponents.chip.Chip
-import com.tagsamurai.tscomponents.model.Severity
 import com.tagsamurai.tscomponents.model.TypeChip
 import com.tagsamurai.tscomponents.shimmerEffect.ShimmerEffect
 import com.tagsamurai.tscomponents.textfield.UserRecord
@@ -79,36 +78,36 @@ private fun HeaderContent(
             lineHeight = 16.sp,
         )
 //        Row {
-            Column {
-                Row {
-                    Text(
-                        text = "Modified by: ",//readerDetail.name.ifNullOrBlank { "-" },
-                        style = SP12.W400,
-                        color = theme.bodyText,
-                        lineHeight = 16.sp,
-                    )
-                    UserRecord(username = supplierDetail.pic) //data.manager.ifNullOrBlank { "" }
-                }
-
-                4.heightBox()
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-//                    readerDetail.groupName?.let {
-                    Text(
-                        text = supplierDetail.lastModified.toDateFormatter(),
-                        style = SP12.W400
-                    )
-//                    }
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        text = stringResource(id = R.string.title_detail),
-                        style = SP12.W500,
-                        color = theme.buttonPrimary,
-                        modifier = Modifier.clickable { onClickAction() }
-                    )
-                }
+        Column {
+            Row {
+                Text(
+                    text = "Modified by: ",//readerDetail.name.ifNullOrBlank { "-" },
+                    style = SP12.W400,
+                    color = theme.bodyText,
+                    lineHeight = 16.sp,
+                )
+                UserRecord(username = supplierDetail.pic) //data.manager.ifNullOrBlank { "" }
             }
+
+            4.heightBox()
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+//                    readerDetail.groupName?.let {
+                Text(
+                    text = supplierDetail.lastModified.toDateFormatter(),
+                    style = SP12.W400
+                )
+//                    }
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = stringResource(id = R.string.title_detail),
+                    style = SP12.W500,
+                    color = theme.buttonPrimary,
+                    modifier = Modifier.clickable { onClickAction() }
+                )
+            }
+        }
 //        }
     }
 }

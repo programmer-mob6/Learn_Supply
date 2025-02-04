@@ -20,10 +20,12 @@ data class SupplierListUiState(
     val downloadState: Boolean? = null,
     val deleteState: Boolean? = null,
     val activateState: Boolean? = null,
+    val editState: Boolean? = null,
+    val activation: Boolean = false,
 
     val showActonSheet: Boolean = false
 
-    ) {
+) {
     val queryParams
         get() = GetSupplierQueryParams(
             search = searchQuery.ifBlank { null },
