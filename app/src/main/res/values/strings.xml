@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Learn Supply</string>
+    <string name="title_home">Home</string>
+    <string name="title_active">Active</string>
+    <string name="title_inactive">Inactive</string>
+    <string name="title_supplier">Supplier</string>
+    <string name="title_supplier_activities">Supplier Activities </string>
+    <string name="title_supplier_detail">Supplier Detail</string>
+    <string name="title_city">City</string>
+    <string name="title_item_name">Item Name</string>
+    <string name="title_modified_by">Modified by</string>
+    <string name="title_last_modified">Last Modified</string>
+    <string name="title_edit">Edit</string>
+    <string name="title_detail">Detail</string>
+    <string name="title_delete">Delete</string>
+    <string name="title_inactivate">Inactivate</string>
+    <string name="title_activate">Activate</string>
+    <string name="title_delete_supplier">Delete Supplier</string>
+    <string name="title_inactivate_supplier">Inactivate Supplier</string>
+    <string name="title_activate_supplier">Activate Supplier</string>
+    <string name="title_cancel">Cancel</string>
+    <string name="message_single_delete_supplier">|%1$s| will be deleted. Are you sure you want to delete it?</string>
+    <string name="message_bulk_delete_supplier">You have selected |%1$s| to be deleted. Are you sure you want to delete it?</string>
+    <string name="message_single_inactivate_supplier">|%1$s| will be inactivated. Are you sure you want to inactivate it?</string>
+    <string name="message_bulk_inactivate_supplier">You have selected |%1$s| to be inactivated. Are you sure you want to inactivate it?</string>
+    <string name="message_single_activate_supplier">|%1$s| will be activated. Are you sure you want to activate it?</string>
+    <string name="message_bulk_activate_supplier">You have selected |%1$s| to be activated. Are you sure you want to activate it?</string>
+
+    <string name="supplied_item">Supplied Item</string>
+    <string name="view_supplied_item">View Supplied Item</string>
+    <string name="pic">PIC</string>
+    <string name="pic_name">PIC Name</string>
+    <string name="pic_phone">PIC Phone</string>
+    <string name="pic_contact_number">PIC Contact Number</string>
+    <string name="pic_email">PIC Email</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="zip_code">ZIP Code</string>
+    <string name="company_name">Company Name</string>
+    <string name="company_phone">Company Phone</string>
+    <string name="company_phone_number">Company Phone Number</string>
+    <string name="company_address">Company Address</string>
+
+    <string name="item">Item</string>
+    <string name="sku">SKU</string>
+    <string name="transaction">Transaction</string>
+    <string name="group">Group</string>
+    <string name="message_success_asset_edited">Success, asset has been edited.</string>
+    <string name="message_error_asset_edited">Error, failed to edit asset. Please check your connection and try again.</string>
+    <string name="title_edit_supplier">Edit Supplier</string>
+    <string name="message_success_asset_registered">Success, asset has been registered.</string>
+    <string name="message_error_asset_registered">Error, failed to register asset. Please check your connection and try again.</string>
+    <string name="title_create">Create</string>
+    <string name="title_add_supplier">Add Supplier</string>
+    <string name="submit">Submit</string>
+    <string name="placeholder_stay_on_form_after_submitting">Stay on this form after submitting</string>
+    <string name="text_placeholder_more_s">+%1$s more</string>
+
+    <string name="message_success_delete_supplier">Success: Success, supplier has been deleted.</string>
+    <string name="message_error_delete_supplier">Error, failed to delete supplier. Please check your connection and try again.</string>
+    <string name="message_success_activate_supplier">Success: Success, supplier has been activated.</string>
+    <string name="message_error_activate_supplier">Error: Error, failed to activate supplier. Please check your connection and try again.</string>
+</resources>
