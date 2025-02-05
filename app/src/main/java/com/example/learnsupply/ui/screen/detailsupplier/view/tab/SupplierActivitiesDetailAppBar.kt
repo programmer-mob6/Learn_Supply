@@ -1,18 +1,23 @@
 package com.example.learnsupply.ui.screen.detailsupplier.view.tab
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.apiservices.data.model.supplier.SupplierEntity
+import com.example.learnsupply.R
 import com.example.learnsupply.ui.screen.addsupplier.view.AddSupplierDialog
 import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.example.learnsupply.ui.screen.detailsupplier.view.SupplierFilterDetailSheet
 import com.example.learnsupply.ui.screen.detailsupplier.viewmodel.SupplierDetailViewModel
 import com.example.learnsupply.ui.screen.supplier.component.DeleteItemDialog
+import com.tagsamurai.tscomponents.handlestate.HandleState
+import com.tagsamurai.tscomponents.loading.LoadingOverlay
 import com.tagsamurai.tscomponents.model.Menu
 import com.tagsamurai.tscomponents.snackbar.OnShowSnackBar
 import com.tagsamurai.tscomponents.textfield.SearchFieldTopAppBar
@@ -20,6 +25,7 @@ import com.tagsamurai.tscomponents.topappbar.TopAppBar
 
 @Composable
 fun SupplierActivitiesDetailAppBar(
+    itemId: String,
     navigateUp: () -> Unit,
     onShowSnackbar: OnShowSnackBar,
     viewmodel: SupplierDetailViewModel = hiltViewModel()
@@ -34,8 +40,18 @@ fun SupplierActivitiesDetailAppBar(
     var showFilterSheet by remember { mutableStateOf(false) }
     var showActionSheet by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
-    val listMenu = getListMenu(uiState)
+    val listMenu = getListMenu()
 
+    HandleState(
+        state = uiState.deleteState,
+        onShowSnackBar = onShowSnackbar,
+        successMsg = stringResource(R.string.message_success_delete_supplier),
+        errorMsg = stringResource(R.string.message_error_delete_supplier),
+        onSuccess = {
+            navigateUp()
+        },
+        onDispose = cb.onResetMessageState
+    )
 
     if (showSearch) {
         SearchFieldTopAppBar(
@@ -57,7 +73,6 @@ fun SupplierActivitiesDetailAppBar(
             navigateUp = navigateUp
         )
     }
-
     SupplierFilterDetailSheet(
         onDismissRequest = { state -> showFilterSheet = state },
         uiState = uiState,
@@ -67,7 +82,6 @@ fun SupplierActivitiesDetailAppBar(
 
     SupplierDetailActionSheet(
         onDismissRequest = { showActionSheet = it },
-        uiState = uiState,
         showSheet = showActionSheet,
         onEdit = { showCreateDialog = true },
         onDelete = { showDeleteDialog = true },
@@ -79,23 +93,24 @@ fun SupplierActivitiesDetailAppBar(
             data = null
         },
         showDialog = showCreateDialog,
-        id = data?.id,
+        id = itemId,
         onShowSnackBar = onShowSnackbar,
-        onSuccess = {}
+        onSuccess = { viewmodel.getDetailSupplier() }
     )
 
     DeleteItemDialog(
         onDismissRequest = { showDeleteDialog = it },
         supplier = listOf(uiState.supplierDetail),
         showDialog = showDeleteDialog,
-        onConfirm = { value ->
-            cb.onDeleteSupplierById(value.map { it.id })
+        onConfirm = {
+            cb.onDeleteSupplierById()
             showActionSheet = false
         }
     )
+    LoadingOverlay(uiState.isLoadingOverlay)
 }
 
-private fun getListMenu(uiState: SupplierDetailUiState): List<Menu> {
+private fun getListMenu(): List<Menu> {
     val menu = listOf(Menu.SEARCH, Menu.FILTER, Menu.OTHER)
 
     return menu

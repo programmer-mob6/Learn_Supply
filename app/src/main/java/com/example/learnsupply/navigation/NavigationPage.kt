@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.learnsupply.ui.screen.changelog.view.ChangeLogScreen
 import com.example.learnsupply.ui.screen.detailsupplier.view.DetailScreen
 import com.example.learnsupply.ui.screen.supplier.view.SupplierScreen
 import com.tagsamurai.tscomponents.snackbar.OnShowSnackBar
@@ -31,6 +32,13 @@ fun NavGraphBuilder.exampleGraph(
         val itemId = navBackStackEntry.arguments?.getString(ITEM_ID).orEmpty()
         DetailScreen(
             itemId = itemId,
+            navController,
+            onShowSnackBar = onShowSnackBar
+        )
+    }
+
+    composable(route = NavigationRoute.ChangeLogScreen.route) {
+        ChangeLogScreen(
             navController,
             onShowSnackBar = onShowSnackBar
         )

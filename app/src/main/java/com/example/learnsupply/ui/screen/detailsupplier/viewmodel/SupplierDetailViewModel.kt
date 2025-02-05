@@ -1,5 +1,6 @@
 package com.example.learnsupply.ui.screen.detailsupplier.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -32,17 +33,18 @@ class SupplierDetailViewModel @Inject constructor(
 
     fun getCallback(): SupplierDetailCallback {
         return SupplierDetailCallback(
-//            onFilter = TODO(),
-//            onSearch = TODO(),
-            onDeleteSupplierById = ::deleteSupplier
+            onDeleteSupplierById = ::deleteSupplier,
+            onResetMessageState = ::resetMessageState
         )
     }
 
-    private fun deleteSupplier(id: List<String>) {
+
+
+    private fun deleteSupplier() {
         _uiState.value = _uiState.value.copy(isLoadingOverlay = true)
 
         val body = DeleteSupplierRequestBody(
-            ids = id
+            ids = listOf(itemId)
         )
 
         deleteAssetByIdUseCase(body).onEach { result ->
@@ -51,18 +53,15 @@ class SupplierDetailViewModel @Inject constructor(
                     _uiState.update { currData ->
                         currData.copy(
                             isLoadingOverlay = false,
-//                            itemSelected = emptyList(),
-//                            deleteState = true
+                            deleteState = true
                         )
                     }
-
-//                    initSupplier()
                 }
 
                 is Result.Error -> {
                     _uiState.value = _uiState.value.copy(
                         isLoadingOverlay = false,
-//                        deleteState = false
+                        deleteState = false
                     )
                 }
             }
@@ -106,5 +105,11 @@ class SupplierDetailViewModel @Inject constructor(
                 curTabIdx = tab,
             )
         }
+    }
+
+    private fun resetMessageState() {
+        _uiState.value = _uiState.value.copy(
+            deleteState = null
+        )
     }
 }

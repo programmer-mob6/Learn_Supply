@@ -7,6 +7,7 @@ import com.tagsamurai.tscomponents.snackbar.OnShowSnackBar
 
 @Composable
 fun SupplierDetailTopAppBar(
+    itemId: String,
     navigateUp: () -> Unit,
     onShowSnackbar: OnShowSnackBar,
     curTab: DetailSupplierTab
@@ -14,6 +15,7 @@ fun SupplierDetailTopAppBar(
     when (curTab) {
         DetailSupplierTab.SUPPLIER_ACTIVITIES -> {
             SupplierActivitiesDetailAppBar(
+                itemId = itemId,
                 navigateUp = navigateUp,
                 onShowSnackbar = onShowSnackbar
             )

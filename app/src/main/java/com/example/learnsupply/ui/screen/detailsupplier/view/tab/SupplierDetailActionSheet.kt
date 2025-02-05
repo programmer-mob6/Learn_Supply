@@ -12,16 +12,12 @@ import com.tagsamurai.tscomponents.theme.theme
 @Composable
 fun SupplierDetailActionSheet(
     onDismissRequest: (Boolean) -> Unit,
-    uiState: SupplierDetailUiState,
     showSheet: Boolean,
     onEdit: (() -> Unit)? = null,
     onDelete: (() -> Unit)? = null
 ) {
     BottomSheet(onDismissRequest = onDismissRequest, isShowSheet = showSheet) {
         Column {
-//            if (uiState.itemSelected.isEmpty()) {
-//
-//            }
             ActionButton(
                 onClickAction = { onEdit?.invoke() },
                 icon = R.drawable.ic_edit_2_line_24dp,

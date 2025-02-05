@@ -12,6 +12,8 @@ data class SupplierDetailUiState(
     val filterData: SupplierFilterData = SupplierFilterData(),
     val filterOption: SupplierFilterOption = SupplierFilterOption(),
 
+    val deleteState: Boolean? = null,
+
     val supplierDetail: SupplierEntity = SupplierEntity(),
 
     val curTabIdx: Int = 0,

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apiservices.base.Result
 import com.example.apiservices.data.source.network.model.request.PostSupplierRequestBody
+import com.example.apiservices.data.source.network.model.request.PutSupplierRequestBody
 import com.example.apiservices.domain.AddSupplierUseCase
 import com.example.apiservices.domain.GetSupplierByIdUseCase
 import com.example.apiservices.domain.UpdateSupplierByIdUseCase
@@ -62,12 +63,15 @@ class AddSupplierViewModel @Inject constructor(
                             isLoadingOverlay = false,
                             formData = AddSupplierFormData(
                                 companyName = result.data.companyName,
-//                                itemName = result.data.suppliedItemName.,
-//                                itemSku = result.data.suppliedItemSku,
                                 country = result.data.country,
                                 state = result.data.state,
                                 city = result.data.city,
-//                                suppliedItem = ,
+                                suppliedItem = result.data.suppliedItem.map {
+                                    AddSupplierSuppliedItem(
+                                        itemName = it.itemName,
+                                        itemSku = it.itemSku
+                                    )
+                                },
                                 zip = result.data.zipCode.toInt(),
                                 companyAddress = result.data.companyAddress,
                                 companyNumber = result.data.companyPhone,
@@ -152,28 +156,49 @@ class AddSupplierViewModel @Inject constructor(
 
         _uiState.value = _uiState.value.copy(isLoadingOverlay = true)
 
-        val body = PostSupplierRequestBody(
-            companyname = data.companyName,
-            city = data.city,
-            country = data.country,
-            state = data.state,
-            zipcode = data.zip.toString(),
-            pic = data.picName,
-            picphone = data.picNumber,
-            picemail = data.picEmail,
-            supplieditem = data.suppliedItem.map {
-                PostSupplierRequestBody.Supplieditem(
-                    item = it.itemName,
-                    sku = it.itemSku
-                )
-            },
-            companyphone = data.companyNumber,
-            companyaddress = data.companyAddress
-        )
         val domain = if (_uiState.value.isEditForm) {
-            updateSupplierByIdUseCase(body)
+            updateSupplierByIdUseCase(
+                PutSupplierRequestBody(
+                    id = _uiState.value.assetId,
+                    companyname = data.companyName,
+                    city = data.city,
+                    country = data.country,
+                    state = data.state,
+                    zipcode = data.zip.toString(),
+                    pic = data.picName,
+                    picphone = data.picNumber,
+                    picemail = data.picEmail,
+                    supplieditem = data.suppliedItem.map {
+                        PutSupplierRequestBody.Supplieditem(
+                            item = it.itemName,
+                            sku = it.itemSku
+                        )
+                    },
+                    companyphone = data.companyNumber,
+                    companyaddress = data.companyAddress
+                )
+            )
         } else {
-            addSupplierUseCase(body)
+            addSupplierUseCase(
+                PostSupplierRequestBody(
+                    companyname = data.companyName,
+                    city = data.city,
+                    country = data.country,
+                    state = data.state,
+                    zipcode = data.zip.toString(),
+                    pic = data.picName,
+                    picphone = data.picNumber,
+                    picemail = data.picEmail,
+                    supplieditem = data.suppliedItem.map {
+                        PostSupplierRequestBody.Supplieditem(
+                            item = it.itemName,
+                            sku = it.itemSku
+                        )
+                    },
+                    companyphone = data.companyNumber,
+                    companyaddress = data.companyAddress
+                )
+            )
         }
 
         domain.onEach { result ->
@@ -184,8 +209,6 @@ class AddSupplierViewModel @Inject constructor(
                 )
             }
         }.launchIn(viewModelScope)
-
-//        resetFormData()
     }
 
     private fun formValidation(data: AddSupplierFormData): Boolean {

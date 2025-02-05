@@ -113,7 +113,6 @@ fun AddSuplierForm(
                                 OptionData("Kulkas", "Kulkas"),
                                 OptionData("TV", "TV"),
                                 OptionData("AC", "AC"),
-                                OptionData("PC", "PC"),
                             ),//uiState.formOption.itemName,
                             placeHolder = stringResource(R.string.title_item_name),
                             value = item.itemName,

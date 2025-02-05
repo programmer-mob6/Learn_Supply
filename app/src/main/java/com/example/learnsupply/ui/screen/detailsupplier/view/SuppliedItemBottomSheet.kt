@@ -65,10 +65,10 @@ fun SuppliedItemBottomSheet(
                     )
                 }
                 itemGap8.heightBox()
-                supplierDetail.suppliedItemName.forEach { itemName ->
+                supplierDetail.suppliedItem.forEach {
                     DetailRecordBottomSheet(
                         label = stringResource(id = R.string.item),
-                        content = itemName,//supplierDetail.name.ifNullOrBlank { "-" },
+                        content = it.itemName,//supplierDetail.name.ifNullOrBlank { "-" },
                         style = bodyStyle,
                         color = theme.bodyText
                     )
@@ -80,7 +80,7 @@ fun SuppliedItemBottomSheet(
                             verticalArrangement = Arrangement.spacedBy(4.dp),
                             horizontalArrangement = Arrangement.spacedBy(4.dp),
                         ) {
-                            supplierDetail.suppliedItemSku.forEach { itemSku ->
+                            it.itemSku.forEach { itemSku ->
                                 Chip(
                                     label = itemSku,
                                     type = TypeChip.PILL,
@@ -91,8 +91,6 @@ fun SuppliedItemBottomSheet(
                         }
                     }
                 }
-
-
             }
         }
         24.heightBox()

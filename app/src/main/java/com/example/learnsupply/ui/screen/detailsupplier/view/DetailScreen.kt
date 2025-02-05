@@ -27,6 +27,7 @@ import com.example.learnsupply.R
 import com.example.learnsupply.ui.screen.detailsupplier.model.DetailSupplierTab
 import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.example.learnsupply.ui.screen.detailsupplier.viewmodel.SupplierDetailViewModel
+import com.tagsamurai.tscomponents.handlestate.HandleState
 import com.tagsamurai.tscomponents.pagetitle.PageTitle
 import com.tagsamurai.tscomponents.scaffold.Scaffold
 import com.tagsamurai.tscomponents.snackbar.OnShowSnackBar
@@ -58,7 +59,7 @@ fun DetailScreen(
     }
 
     DetailHomeScreen(
-//        itemId = itemId,
+        itemId = itemId,
         uiState = uiState,
         navigateUp = { navController.popBackStack() },
         onShowSnackbar = onShowSnackBar,
@@ -69,7 +70,7 @@ fun DetailScreen(
 
 @Composable
 private fun DetailHomeScreen(
-//    itemId: String,
+    itemId: String,
     uiState: SupplierDetailUiState,
     navigateUp: () -> Unit,
     onShowSnackbar: OnShowSnackBar,
@@ -78,12 +79,12 @@ private fun DetailHomeScreen(
 ) {
 
     var showDetail by remember { mutableStateOf(false) }
-//    var showSuppliedItem by remember { mutableStateOf(false) }
     val isCompact = LocalContext.current.getIsCompact()
 
     Scaffold(
         topBar = {
             SupplierDetailTopAppBar(
+                itemId = itemId,
                 navigateUp = navigateUp,
                 onShowSnackbar = onShowSnackbar,
                 curTab = uiState.curTab
@@ -113,23 +114,12 @@ private fun DetailHomeScreen(
             }
         }
 
-        //bottomsheet
         SupplierDetailBottomSheet(
             supplierDetail = uiState.supplierDetail,
             showSheet = showDetail,
-//            onClickAction = {
-//                showSuppliedItem = true
-//            }
         ) {
             showDetail = false
         }
-
-//        SuppliedItemBottomSheet(
-//            supplierDetail = uiState.supplierDetail,
-//            showSheet = showSuppliedItem,
-//        ) {
-//            showSuppliedItem = false
-//        }
     }
 }
 

@@ -6,6 +6,7 @@
     <string name="title_supplier">Supplier</string>
     <string name="title_supplier_activities">Supplier Activities </string>
     <string name="title_supplier_detail">Supplier Detail</string>
+    <string name="title_change_log_supplier">Change Log: Supplier</string>
     <string name="title_city">City</string>
     <string name="title_item_name">Item Name</string>
     <string name="title_modified_by">Modified by</string>

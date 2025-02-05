@@ -14,4 +14,8 @@ sealed class NavigationRoute(val route: String) {
             return "detail_screen/$itemId"
         }
     }
+
+    data object ChangeLogScreen: NavigationRoute(
+        route = "change_log_screen"
+    )
 }

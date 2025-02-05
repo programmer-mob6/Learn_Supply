@@ -18,6 +18,7 @@ import com.example.apiservices.data.model.supplier.SupplierEntity
 import com.example.learnsupply.R
 import com.tagsamurai.tscomponents.bottomsheet.BottomSheet
 import com.tagsamurai.tscomponents.chip.Chip
+import com.tagsamurai.tscomponents.model.Severity
 import com.tagsamurai.tscomponents.model.TypeChip
 import com.tagsamurai.tscomponents.rowdata.DetailRecordBottomSheet
 import com.tagsamurai.tscomponents.textfield.UserRecord
@@ -32,7 +33,6 @@ import com.tagsamurai.tscomponents.utils.itemGap8
 fun SupplierDetailBottomSheet(
     supplierDetail: SupplierEntity,
     showSheet: Boolean,
-//    onClickAction: () -> Unit,
     onDismissRequest: (Boolean) -> Unit,
 ) {
     var showSuppliedItem by remember { mutableStateOf(false) }
@@ -50,9 +50,9 @@ fun SupplierDetailBottomSheet(
                     .padding(horizontal = 30.dp)
             ) {
                 Chip(
-                    label = supplierDetail.isActive,//"Active",//supplierDetail.isActive,
+                    label = supplierDetail.isActive,
                     type = TypeChip.BULLET,
-//                    severity = supplierDetail.statusSeverity,
+                    severity = if (supplierDetail.isActive == "Active") Severity.SUPPLY else Severity.DANGER,
                     truncateText = false
                 )
                 itemGap8.heightBox()
@@ -73,61 +73,61 @@ fun SupplierDetailBottomSheet(
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.pic)
                 ) {
-                    UserRecord(username = supplierDetail.pic) //supplierDetail.pic
+                    UserRecord(username = supplierDetail.pic)
                 }
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.pic_phone),
-                    content = supplierDetail.picPhone,//"(+62)21 6672812",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.picPhone,
                     style = bodyStyle,
                     color = theme.bodyText
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.pic_email),
-                    content = supplierDetail.picEmail,//"Budiu@mailnesia.com",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.picEmail,
                     style = bodyStyle,
                     color = theme.bodyText
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.country),
-                    content = supplierDetail.country,//"Indonesia",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.country,
                     style = bodyStyle,
                     color = theme.bodyText
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.state),
-                    content = supplierDetail.state,//"Indonesia",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.state,
                     style = bodyStyle,
                     color = theme.bodyText
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.city),
-                    content = supplierDetail.city,//"DKI Jakarta",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.city,
                     style = bodyStyle,
                     color = theme.bodyText
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.zip_code),
-                    content = supplierDetail.zipCode,//"13440",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.zipCode,
                     style = bodyStyle,
                     color = theme.bodyText
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.company_phone),
-                    content = supplierDetail.companyPhone,//"(+62)21 6672812",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.companyPhone,
                     style = bodyStyle,
                     color = theme.bodyText
                 )
                 itemGap8.heightBox()
                 DetailRecordBottomSheet(
                     label = stringResource(id = R.string.company_address),
-                    content = supplierDetail.companyAddress,//"Jalan Villa Gading Indah Blok A1 No.1 Ruko Boulevard",//supplierDetail.name.ifNullOrBlank { "-" },
+                    content = supplierDetail.companyAddress,
                     style = bodyStyle,
                     color = theme.bodyText
                 )

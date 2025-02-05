@@ -19,6 +19,7 @@ import com.example.apiservices.data.model.supplier.SupplierEntity
 import com.example.learnsupply.R
 import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.tagsamurai.tscomponents.chip.Chip
+import com.tagsamurai.tscomponents.model.Severity
 import com.tagsamurai.tscomponents.model.TypeChip
 import com.tagsamurai.tscomponents.shimmerEffect.ShimmerEffect
 import com.tagsamurai.tscomponents.textfield.UserRecord
@@ -65,40 +66,38 @@ private fun HeaderContent(
     val theme = LocalTheme.current
     Column {
         Chip(
-            label = supplierDetail.isActive,//readerDetail.networkStatus.ifNullOrBlank { "-" },
+            label = supplierDetail.isActive,
             type = TypeChip.BULLET,
-//            severity = ,//readerDetail.networkStatusSeverity,
+            severity = if (supplierDetail.isActive == "Active") Severity.SUPPLY else Severity.DANGER,
             truncateText = false,
         )
         8.heightBox()
         Text(
-            text = supplierDetail.companyName,//readerDetail.name.ifNullOrBlank { "-" },
+            text = supplierDetail.companyName,
             style = SP12.W600,
             color = theme.bodyText,
             lineHeight = 16.sp,
         )
-//        Row {
+
         Column {
             Row {
                 Text(
-                    text = "Modified by: ",//readerDetail.name.ifNullOrBlank { "-" },
+                    text = "Modified by: ",
                     style = SP12.W400,
                     color = theme.bodyText,
                     lineHeight = 16.sp,
                 )
-                UserRecord(username = supplierDetail.pic) //data.manager.ifNullOrBlank { "" }
+                UserRecord(username = supplierDetail.pic)
             }
 
             4.heightBox()
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-//                    readerDetail.groupName?.let {
                 Text(
                     text = supplierDetail.lastModified.toDateFormatter(),
                     style = SP12.W400
                 )
-//                    }
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = stringResource(id = R.string.title_detail),
@@ -108,7 +107,6 @@ private fun HeaderContent(
                 )
             }
         }
-//        }
     }
 }
 

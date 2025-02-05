@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.apiservices.data.model.supplier.SupplierEntity
+import com.example.learnsupply.navigation.NavigationRoute
 import com.example.learnsupply.ui.screen.supplier.component.ActivateItemDialog
 import com.example.learnsupply.ui.screen.supplier.component.DeleteItemDialog
 import com.example.learnsupply.ui.screen.supplier.view.SupplierFilterSheet
@@ -55,7 +56,7 @@ private fun SupplierListTopAppBar(
     var showDownloadDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showActiveDialog by remember { mutableStateOf(false) }
-    var navigateToChangelog by remember { mutableStateOf(false) }
+//    var navigateToChangelog by remember { mutableStateOf(false) }
     var isActivate: Boolean? by remember { mutableStateOf(null) }
 
     val listMenu = getListMenu(uiState)
@@ -74,14 +75,19 @@ private fun SupplierListTopAppBar(
                     Menu.SEARCH -> showSearch = true
                     Menu.FILTER -> showFilterSheet = true
                     Menu.DOWNLOAD -> showDownloadDialog = true
-//                Menu.LOG -> navigateToChangelog = true
+                    Menu.LOG -> {
+                        navigateTo(
+                            NavigationRoute.ChangeLogScreen.route
+                        )
+//                        navigateToChangelog = true
+                    }
                     Menu.SELECT_ALL, Menu.UNSELECT_ALL -> cb.onToggleSelectAll()
                     Menu.OTHER -> showActionSheet = true
                     else -> Unit
                 }
             },
             title = if (uiState.itemSelected.isNotEmpty()) "${uiState.itemSelected.size}" else "",
-            navigateUp = {},
+            navigateUp = { navigateUp() },
         )
     }
 
