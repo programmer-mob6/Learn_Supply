@@ -68,7 +68,7 @@ fun SuppliedItemBottomSheet(
                 supplierDetail.suppliedItem.forEach {
                     DetailRecordBottomSheet(
                         label = stringResource(id = R.string.item),
-                        content = it.itemName,//supplierDetail.name.ifNullOrBlank { "-" },
+                        content = it.itemName,
                         style = bodyStyle,
                         color = theme.bodyText
                     )

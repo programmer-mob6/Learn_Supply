@@ -8,10 +8,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -43,17 +39,14 @@ fun AddSuplierScreen(
     val submitText: String
     val titleText: String
 
-    var textFieldValue by remember { mutableStateOf("") }
-    var textFieldIsError by remember { mutableStateOf(false) }
-
     if (uiState.isEditForm) {
-        successMessage = stringResource(R.string.message_success_asset_edited)
-        errorMessage = stringResource(R.string.message_error_asset_edited)
+        successMessage = stringResource(R.string.message_success_supplier_edited)
+        errorMessage = stringResource(R.string.message_error_supplier_edited)
         submitText = stringResource(R.string.title_edit)
         titleText = stringResource(R.string.title_edit_supplier)
     } else {
-        successMessage = stringResource(R.string.message_success_asset_registered)
-        errorMessage = stringResource(R.string.message_error_asset_registered)
+        successMessage = stringResource(R.string.message_success_supplier_registered)
+        errorMessage = stringResource(R.string.message_error_supplier_registered)
         submitText = stringResource(R.string.title_create)
         titleText = stringResource(R.string.title_add_supplier)
     }
@@ -79,7 +72,6 @@ fun AddSuplierScreen(
                 canNavigateBack = true,
                 onMenuAction = {},
                 navigateUp = onNavigateUp,
-//                title = "Add Supplier"
             )
         },
         isShowLoadingOverlay = uiState.isLoadingOverlay

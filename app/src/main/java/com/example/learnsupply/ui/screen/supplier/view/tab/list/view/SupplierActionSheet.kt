@@ -46,7 +46,7 @@ fun SupplierActionSheet(
                     Spacer(modifier = Modifier.weight(1f))
                     CustomSwitch(
                         value = item.isActive == "Active",
-                        onValueChange = { state ->
+                        onValueChange = {
                             onUpdateActive?.invoke(item.isActive != "Active")
                         }
                     )

@@ -1,6 +1,5 @@
 package com.example.learnsupply.ui.screen.supplier.view.tab.list.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apiservices.base.Result
@@ -8,14 +7,16 @@ import com.example.apiservices.data.model.supplier.SupplierEntity
 import com.example.apiservices.data.source.network.model.request.DeleteSupplierRequestBody
 import com.example.apiservices.data.source.network.model.request.PutSupplierIsActiveRequestBody
 import com.example.apiservices.domain.DeleteAssetByIdUseCase
+import com.example.apiservices.domain.GetSupplierFilterUseCase
 import com.example.apiservices.domain.GetSupplierUseCase
 import com.example.apiservices.domain.PutIsActiveSupplierUseCase
 import com.example.learnsupply.model.supplierlist.SupplierFilterData
 import com.example.learnsupply.model.supplierlist.SupplierFilterOption
 import com.example.learnsupply.ui.screen.supplier.view.tab.list.model.SupplierListCallback
 import com.example.learnsupply.ui.screen.supplier.view.tab.list.uistate.SupplierListUiState
-import com.example.learnsupply.util.DataDummy.generateOptionDataString
+import com.tagsamurai.tscomponents.button.OptionData
 import com.tagsamurai.tscomponents.utils.ExportUtil
+import com.tagsamurai.tscomponents.utils.Utils.toDateFormatter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,6 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SupplierListViewModel @Inject constructor(
     private val getSupplierUseCase: GetSupplierUseCase,
+    private val getSupplierFilterUseCase: GetSupplierFilterUseCase,
     private val deleteAssetByIdUseCase: DeleteAssetByIdUseCase,
     private val putIsActiveSupplierUseCase: PutIsActiveSupplierUseCase,
     private val exportUtil: ExportUtil
@@ -35,13 +37,17 @@ class SupplierListViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     fun init() {
+        _uiState.value = _uiState.value.copy(
+            filterData = SupplierFilterData(),
+            searchQuery = ""
+        )
         initSupplier()
         getFilterOption()
     }
 
     fun getCallback(): SupplierListCallback {
         return SupplierListCallback(
-            onRefresh = ::initSupplier,
+            onRefresh = ::init,
             onFilter = ::updateFilter,
             onSearch = ::search,
             onToggleSelectAll = ::toggleSelectAll,
@@ -62,7 +68,6 @@ class SupplierListViewModel @Inject constructor(
             ids = ids,
             isActive = status
         )
-        Log.d("SupplierListViewModel 1", "onUpdateActiveById: $body")
 
         putIsActiveSupplierUseCase(body).onEach { result ->
             when (result) {
@@ -73,11 +78,10 @@ class SupplierListViewModel @Inject constructor(
                             isLoading = false,
                             itemSelected = emptyList(),
                             activateState = true,
-                            activation = true
+                            activation = status
                         )
                     }
-                    Log.d("SupplierListViewModel 2", "onUpdateActiveById: Success")
-                    initSupplier()
+                    init()
                 }
 
                 is Result.Error -> {
@@ -85,9 +89,8 @@ class SupplierListViewModel @Inject constructor(
                         isLoadingOverlay = false,
                         isLoading = false,
                         activateState = false,
-                        activation = false,
+                        activation = null
                     )
-                    Log.d("SupplierListViewModel 2", "onUpdateActiveById: Error")
                 }
             }
         }.launchIn(viewModelScope)
@@ -117,12 +120,11 @@ class SupplierListViewModel @Inject constructor(
         return data.map {
             mapOf(
                 "Company Name" to it.companyName,
-                "Supplied Item Name" to "${it.suppliedItemName}",
                 "Supplied Item Sku" to "${it.suppliedItemSku}",
                 "Active Status" to it.isActive,
                 "City" to it.city,
                 "Country" to it.country,
-                "Last Modified" to it.lastModified,
+                "Last Modified" to it.lastModified.toDateFormatter(),
                 "PIC" to it.pic,
             )
         }
@@ -171,7 +173,6 @@ class SupplierListViewModel @Inject constructor(
     private fun deleteAssetById(id: List<String>) {
         _uiState.value = _uiState.value.copy(isLoadingOverlay = true, isLoading = true)
 
-        Log.d("SupplierListViewModel 1", "deleteAssetById: Called")
 
         val body = DeleteSupplierRequestBody(
             ids = id
@@ -188,7 +189,7 @@ class SupplierListViewModel @Inject constructor(
                             deleteState = true
                         )
                     }
-                    initSupplier()
+                    init()
                 }
 
                 is Result.Error -> {
@@ -230,27 +231,57 @@ class SupplierListViewModel @Inject constructor(
             searchQuery = "",
             filterData = data
         )
-
         initSupplier()
     }
 
     private fun getFilterOption() {
-        getSupplierUseCase(_uiState.value.queryParams).onEach { result ->
-            if (result is Result.Success) {
-                _uiState.value = _uiState.value.copy(
-                    filterOption = SupplierFilterOption(
-                        activeSelected = generateOptionDataString(result.data.map { it.isActive }
-                            .distinct()),
-                        supplierSelected = generateOptionDataString(result.data.map { it.companyName }
-                            .distinct()),
-                        citySelected = generateOptionDataString(result.data.map { it.city }
-                            .distinct()),
-//                        itemNameSelected = generateOptionDataString(result.data.map { it.suppliedItemName }
-//                            .distinct()),
-                        modifiedBySelected = generateOptionDataString(result.data.map { it.pic }
-                            .distinct())
+        _uiState.value = _uiState.value.copy(isLoading = true)
+
+        getSupplierFilterUseCase().onEach { result ->
+            when (result) {
+                is Result.Success -> {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        filterOption = SupplierFilterOption(
+                            activeSelected = result.data.active.map {
+                                OptionData(
+                                    label = if (it.label) "Active" else "Inactive",
+                                    value = it.value
+                                )
+                            },
+                            supplierSelected = result.data.supplier.map {
+                                OptionData(
+                                    label = it.label,
+                                    value = it.value
+                                )
+                            },
+                            citySelected = result.data.city.map {
+                                OptionData(
+                                    label = it.label,
+                                    value = it.value
+                                )
+                            },
+                            itemNameSelected = result.data.itemName.map {
+                                OptionData(
+                                    label = it.label,
+                                    value = it.value
+                                )
+                            },
+                            modifiedBySelected = result.data.modifiedBy.map {
+                                OptionData(
+                                    label = it.label,
+                                    value = it.value
+                                )
+                            },
+                        )
                     )
-                )
+                }
+
+                is Result.Error -> {
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false
+                    )
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -280,7 +311,8 @@ class SupplierListViewModel @Inject constructor(
     private fun resetMessageState() {
         _uiState.value = _uiState.value.copy(
             deleteState = null,
-            activateState = null
+            activateState = null,
+            downloadState = null
         )
     }
 }

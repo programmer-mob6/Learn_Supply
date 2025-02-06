@@ -49,11 +49,11 @@
     <string name="sku">SKU</string>
     <string name="transaction">Transaction</string>
     <string name="group">Group</string>
-    <string name="message_success_asset_edited">Success, asset has been edited.</string>
-    <string name="message_error_asset_edited">Error, failed to edit asset. Please check your connection and try again.</string>
+    <string name="message_success_supplier_edited">Success, supplier has been edited.</string>
+    <string name="message_error_supplier_edited">Error failed to edit supplier. Please check your connection and try again.</string>
     <string name="title_edit_supplier">Edit Supplier</string>
-    <string name="message_success_asset_registered">Success, asset has been registered.</string>
-    <string name="message_error_asset_registered">Error, failed to register asset. Please check your connection and try again.</string>
+    <string name="message_success_supplier_registered">Success, supplier has been registered.</string>
+    <string name="message_error_supplier_registered">Error failed to add supplier. Please check your connection and try again.</string>
     <string name="title_create">Create</string>
     <string name="title_add_supplier">Add Supplier</string>
     <string name="submit">Submit</string>
@@ -64,4 +64,20 @@
     <string name="message_error_delete_supplier">Error, failed to delete supplier. Please check your connection and try again.</string>
     <string name="message_success_activate_supplier">Success: Success, supplier has been %s.</string>
     <string name="message_error_activate_supplier">Error: Error, failed to activate supplier. Please check your connection and try again.</string>
+    <string name="title_date">Date</string>
+    <string name="message_success_download_supplier_list">Success: Success, data has been downloaded.</string>
+    <string name="message_error_download_supplier_lis">Error: Error, failed to download data . Please check your connection and try again.</string>
+
+    <string name="message_error_empty_company_name">Company Name must not be empty</string>
+    <string name="message_error_empty_item_name">You must pick an item name</string>
+    <string name="message_error_empty_item_sku">You must pick a SKU</string>
+    <string name="message_error_empty_country">You must pick a country</string>
+    <string name="message_error_empty_state">You must pick a state</string>
+    <string name="message_error_empty_city">You must pick a city</string>
+    <string name="message_error_empty_zip">ZIP Code must not be empty</string>
+    <string name="message_error_empty_company_address">Company Address must not be empty</string>
+    <string name="message_error_empty_company_number">Company Number must not be empty</string>
+    <string name="message_error_empty_pic_name">PIC Name must not be empty</string>
+    <string name="message_error_empty_pic_number">PIC Number must not be empty</string>
+    <string name="message_error_empty_pic_email">PIC Email must not be empty</string>
 </resources>

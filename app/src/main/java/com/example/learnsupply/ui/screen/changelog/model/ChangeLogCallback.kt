@@ -1,10 +1,11 @@
 package com.example.learnsupply.ui.screen.changelog.model
 
-import com.example.learnsupply.model.supplierlist.SupplierFilterData
+import com.example.learnsupply.model.changelog.ChangeLogFilterData
 
 data class ChangeLogCallback(
-    val onFilter: (SupplierFilterData) -> Unit = {},
+    val onFilter: (ChangeLogFilterData) -> Unit = {},
     val onSearch: (String) -> Unit = {},
     val onRefresh: () -> Unit = {},
-
+    val onDownload: (String) -> Unit = {},
+    val onResetMessageState: () -> Unit = {}
 )

@@ -10,9 +10,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.learnsupply.ui.screen.changelog.model.ChangeLogCallback
 import com.example.learnsupply.ui.screen.changelog.uistate.ChangeLogUiState
 import com.example.learnsupply.ui.screen.changelog.viewmodel.ChangeLogViewModel
+import com.tagsamurai.tscomponents.alertdialog.DownloadConfirmDialog
 import com.tagsamurai.tscomponents.model.Menu
 import com.tagsamurai.tscomponents.textfield.SearchFieldTopAppBar
 import com.tagsamurai.tscomponents.topappbar.TopAppBar
+import com.tagsamurai.tscomponents.utils.Utils.getDownloadFilename
 
 @Composable
 fun ChangeLogTopAppBar(
@@ -35,7 +37,7 @@ private fun ChangeLogTopAppBarContent(
     uiState: ChangeLogUiState,
     navigateUp: () -> Unit,
     cb: ChangeLogCallback,
-){
+) {
     var showSearch by remember { mutableStateOf(false) }
     var showFilterSheet by remember { mutableStateOf(false) }
     var showDownloadDialog by remember { mutableStateOf(false) }
@@ -45,12 +47,12 @@ private fun ChangeLogTopAppBarContent(
     if (showSearch) {
         SearchFieldTopAppBar(
             onNavigateUp = { showSearch = false },
-            onSearchConfirm = {}//cb.onSearch
+            onSearchConfirm = cb.onSearch
         )
     } else {
         TopAppBar(
             menu = listMenu,
-            canNavigateBack = false,
+            canNavigateBack = true,
             onMenuAction = { menu ->
                 when (menu) {
                     Menu.SEARCH -> showSearch = true
@@ -60,6 +62,22 @@ private fun ChangeLogTopAppBarContent(
                 }
             },
             navigateUp = navigateUp
+        )
+    }
+
+    ChangeLogFilterSheet(
+        onDismissRequest = { state -> showFilterSheet = state },
+        uiState = uiState,
+        showFilter = showFilterSheet,
+        onApplyConfirm = cb.onFilter
+    )
+
+    if (showDownloadDialog) {
+        val filename = "Change-Log".getDownloadFilename()
+        DownloadConfirmDialog(
+            filename = filename,
+            onDismissRequest = { showDownloadDialog = false },
+            onConfirm = { cb.onDownload(filename) },
         )
     }
 }

@@ -35,7 +35,7 @@ fun ActivateItemDialog(
     val message = rawContent.generateAnnotated()
 
 
-    val buttonConfirmText = if (isActive) { //suplierStatus.firstOrNull() == "Active"
+    val buttonConfirmText = if (isActive) {
         stringResource(R.string.title_activate)
     } else {
         stringResource(R.string.title_inactivate)

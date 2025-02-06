@@ -7,7 +7,7 @@ data class SupplierListCallback(
     val onRefresh: () -> Unit = {},
     val onFilter: (SupplierFilterData) -> Unit = {},
     val onSearch: (String) -> Unit = {},
-    val onUpdateItemSelected: (SupplierEntity) -> Unit = {}, //AssetEntity
+    val onUpdateItemSelected: (SupplierEntity) -> Unit = {},
     val onToggleSelectAll: () -> Unit = {},
     val onDeleteAssetById: (List<String>) -> Unit = {},
     val onUpdateActiveById: (List<String>, Boolean) -> Unit = { _, _ -> },

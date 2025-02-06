@@ -37,7 +37,15 @@ fun SupplierListContent(
         onDispose = supplierCallback.onResetMessageState
     )
 
-    val status = if (uiState.value.activation) "Activate" else "Inactivate"
+    HandleState(
+        state = uiState.value.downloadState,
+        onShowSnackBar = onShowSnackBar,
+        successMsg = stringResource(R.string.message_success_download_supplier_list),
+        errorMsg = stringResource(R.string.message_error_download_supplier_lis),
+        onDispose = supplierCallback.onResetMessageState
+    )
+
+    val status = if (uiState.value.activation == true) "Activated" else "Inactivated"
     HandleState(
         state = uiState.value.activateState,
         onShowSnackBar = onShowSnackBar,
@@ -45,14 +53,6 @@ fun SupplierListContent(
         errorMsg = stringResource(R.string.message_error_activate_supplier),
         onDispose = supplierCallback.onResetMessageState
     )
-
-//    HandleState(
-//        state = uiState.value.editState,
-//        onShowSnackBar = onShowSnackBar,
-//        successMsg = stringResource(R.string.message_success_edit_supplier),
-//        errorMsg = stringResource(R.string.message_error_edit_supplier),
-//        onDispose = supplierCallback.onRefresh
-//    )
 
     LaunchedEffect(Unit) {
         supplierlistViewModel.init()

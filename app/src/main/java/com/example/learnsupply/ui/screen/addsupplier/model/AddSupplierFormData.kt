@@ -2,8 +2,6 @@ package com.example.learnsupply.ui.screen.addsupplier.model
 
 data class AddSupplierFormData(
     val companyName: String = "",
-//    val itemName: String ="",
-//    val itemSku: List<String> = listOf(),
     val suppliedItem: List<AddSupplierSuppliedItem> = listOf(),
     val country: String = "",
     val state: String = "",

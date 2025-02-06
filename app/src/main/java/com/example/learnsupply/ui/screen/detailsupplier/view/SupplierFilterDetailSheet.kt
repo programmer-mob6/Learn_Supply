@@ -8,7 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import com.example.learnsupply.R
-import com.example.learnsupply.model.supplierlist.SupplierFilterData
+import com.example.learnsupply.model.supplierdetail.SupplierDetailFilterData
 import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.tagsamurai.tscomponents.bottomsheet.FilterBottomSheet
 import com.tagsamurai.tscomponents.bottomsheet.TreeMultiSelectBottomSheet
@@ -20,7 +20,7 @@ fun SupplierFilterDetailSheet(
     onDismissRequest: (Boolean) -> Unit,
     uiState: SupplierDetailUiState,
     showFilter: Boolean,
-    onApplyConfirm: (SupplierFilterData) -> Unit
+    onApplyConfirm: (SupplierDetailFilterData) -> Unit
 ) {
     var tempFilterData by remember { mutableStateOf(uiState.filterData) }
     val filterOption = uiState.filterOption
@@ -42,18 +42,18 @@ fun SupplierFilterDetailSheet(
             onDismissRequest(false)
         },
         onResetConfirm = {
-            tempFilterData = SupplierFilterData()
+            tempFilterData = SupplierDetailFilterData()
         },
-        isItemSelected = tempFilterData != SupplierFilterData(),
+        isItemSelected = tempFilterData != SupplierDetailFilterData(),
         isShowSheet = showFilter
     ) { reset ->
         ChipSelectorWithOptionData(
             title = stringResource(R.string.transaction),
-            value = tempFilterData.activeSelected,
+            value = tempFilterData.transactionSelected,
             isReset = reset,
-            items = uiState.filterOption.activeSelected,
+            items = uiState.filterOption.transactionSelected,
             onChipsSelected = { result ->
-                tempFilterData = tempFilterData.copy(activeSelected = result)
+                tempFilterData = tempFilterData.copy(transactionSelected = result)
             }
         )
         TreeMultiSelectBottomSheet(
@@ -69,11 +69,11 @@ fun SupplierFilterDetailSheet(
         )
         ChipSelectorWithOptionData(
             title = stringResource(R.string.pic),
-            value = tempFilterData.supplierSelected,
+            value = tempFilterData.picSelected,
             isReset = reset,
-            items = uiState.filterOption.supplierSelected,
+            items = uiState.filterOption.picSelected,
             onChipsSelected = { result ->
-                tempFilterData = tempFilterData.copy(supplierSelected = result)
+                tempFilterData = tempFilterData.copy(picSelected = result)
             }
         )
         FilterDatePicker(

@@ -3,7 +3,6 @@ package com.example.learnsupply.ui.screen.detailsupplier.view.tab
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.tagsamurai.tscomponents.R
 import com.tagsamurai.tscomponents.bottomsheet.BottomSheet
 import com.tagsamurai.tscomponents.button.ActionButton

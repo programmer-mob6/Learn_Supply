@@ -1,6 +1,5 @@
 package com.example.learnsupply.ui.screen.detailsupplier.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,9 +22,9 @@ import javax.inject.Inject
 class SupplierDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getSupplierByIdUseCase: GetSupplierByIdUseCase,
-    private val deleteAssetByIdUseCase: DeleteAssetByIdUseCase,
+    private val deleteAssetByIdUseCase: DeleteAssetByIdUseCase
+) : ViewModel() {
 
-    ) : ViewModel() {
     private val _uiState = MutableStateFlow(SupplierDetailUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -37,8 +36,6 @@ class SupplierDetailViewModel @Inject constructor(
             onResetMessageState = ::resetMessageState
         )
     }
-
-
 
     private fun deleteSupplier() {
         _uiState.value = _uiState.value.copy(isLoadingOverlay = true)
@@ -66,7 +63,6 @@ class SupplierDetailViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
-
     }
 
     fun getDetailSupplier() {
@@ -75,9 +71,8 @@ class SupplierDetailViewModel @Inject constructor(
                 isLoading = true
             )
         }
-        getSupplierByIdUseCase(
-            id = itemId
-        ).onEach { result ->
+
+        getSupplierByIdUseCase(id = itemId).onEach { result ->
             when (result) {
                 is Result.Success -> {
                     _uiState.update {

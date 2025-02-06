@@ -16,9 +16,6 @@ fun SupplierTopAppBar(
             navigateTo = navigateTo
         )
 
-        1 -> SupplierActivitiesTopAppBar(
-            navigateUp = navigateUp,
-            navigateTo = navigateTo
-        )
+        1 -> SupplierActivitiesTopAppBar()
     }
 }

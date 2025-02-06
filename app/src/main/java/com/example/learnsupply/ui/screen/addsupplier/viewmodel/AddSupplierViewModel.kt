@@ -9,6 +9,7 @@ import com.example.apiservices.data.source.network.model.request.PutSupplierRequ
 import com.example.apiservices.domain.AddSupplierUseCase
 import com.example.apiservices.domain.GetSupplierByIdUseCase
 import com.example.apiservices.domain.UpdateSupplierByIdUseCase
+import com.example.learnsupply.R
 import com.example.learnsupply.ui.screen.addsupplier.model.AddSupplierCallback
 import com.example.learnsupply.ui.screen.addsupplier.model.AddSupplierFormData
 import com.example.learnsupply.ui.screen.addsupplier.model.AddSupplierFormError
@@ -26,7 +27,6 @@ import javax.inject.Inject
 @HiltViewModel
 class AddSupplierViewModel @Inject constructor(
     private val getSupplierByIdUseCase: GetSupplierByIdUseCase,
-//    private val getSupplierUseCase: GetSupplierUseCase,
     private val addSupplierUseCase: AddSupplierUseCase,
     private val updateSupplierByIdUseCase: UpdateSupplierByIdUseCase,
     @ApplicationContext private val context: Context
@@ -213,25 +213,65 @@ class AddSupplierViewModel @Inject constructor(
 
     private fun formValidation(data: AddSupplierFormData): Boolean {
         var formError = AddSupplierFormError()
-//        if (data.group.isEmpty()) {
-//            formError =
-//                formError.copy(group = context.getString(R.string.message_error_empty_group))
-//        }
-//
-//        if (data.name.isEmpty()) {
-//            formError =
-//                formError.copy(name = context.getString(R.string.message_error_empty_name))
-//        }
-//
-//        if (data.brand.isEmpty()) {
-//            formError =
-//                formError.copy(brand = context.getString(R.string.message_error_empty_brand))
-//        }
-//
-//        if (data.model.isEmpty()) {
-//            formError =
-//                formError.copy(model = context.getString(R.string.message_error_empty_model))
-//        }
+        if (data.companyName.isEmpty()) {
+            formError =
+                formError.copy(companyName = context.getString(R.string.message_error_empty_company_name))
+        }
+
+        if (data.suppliedItem.isEmpty() || data.suppliedItem.any { it.itemName.isEmpty() }) {
+            formError =
+                formError.copy(itemName = context.getString(R.string.message_error_empty_item_name))
+        }
+
+        if (data.suppliedItem.isEmpty() || data.suppliedItem.any { it.itemSku.isEmpty() }) {
+            formError =
+                formError.copy(itemSku = context.getString(R.string.message_error_empty_item_sku))
+        }
+
+        if (data.country.isEmpty()) {
+            formError =
+                formError.copy(country = context.getString(R.string.message_error_empty_country))
+        }
+
+        if (data.state.isEmpty()) {
+            formError =
+                formError.copy(state = context.getString(R.string.message_error_empty_state))
+        }
+
+        if (data.city.isEmpty()) {
+            formError =
+                formError.copy(city = context.getString(R.string.message_error_empty_city))
+        }
+
+        if (data.zip == 0) {
+            formError =
+                formError.copy(zip = context.getString(R.string.message_error_empty_zip))
+        }
+
+        if (data.companyAddress.isEmpty()) {
+            formError =
+                formError.copy(companyAddress = context.getString(R.string.message_error_empty_company_address))
+        }
+
+        if (data.companyNumber.isEmpty()) {
+            formError =
+                formError.copy(companyNumber = context.getString(R.string.message_error_empty_company_number))
+        }
+
+        if (data.picName.isEmpty()) {
+            formError =
+                formError.copy(picName = context.getString(R.string.message_error_empty_pic_name))
+        }
+
+        if (data.picNumber.isEmpty()) {
+            formError =
+                formError.copy(picNumber = context.getString(R.string.message_error_empty_pic_number))
+        }
+
+        if (data.picEmail.isEmpty()) {
+            formError =
+                formError.copy(picEmail = context.getString(R.string.message_error_empty_pic_email))
+        }
 
         _uiState.value = _uiState.value.copy(formError = formError)
 

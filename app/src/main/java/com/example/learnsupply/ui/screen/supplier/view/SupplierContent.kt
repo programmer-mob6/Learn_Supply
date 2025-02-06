@@ -19,13 +19,12 @@ fun SupplierContent(
 ) {
     val tabList = SupllierTabEnum.entries.map { it.title }
 
-
     Column {
         PageTitle(
             title = stringResource(com.example.learnsupply.R.string.title_home),
             bottomContent = {
                 TabList(
-                    onTabChange = onTabChange, //supplierCallback.onChangeCurTab,
+                    onTabChange = onTabChange,
                     tabs = tabList,
                     selectedTabIndex = uiState.curTabIdx,
                 )
@@ -40,10 +39,7 @@ fun SupplierContent(
             }
 
             SupllierTabEnum.ACTIVITIES -> {
-                SupplierActivitiesContent(
-                    navigateTo = navigateTo,
-                    onShowSnackBar = onShowSnackbar,
-                )
+                SupplierActivitiesContent()
             }
         }
 

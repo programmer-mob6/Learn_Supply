@@ -23,11 +23,11 @@ import com.tagsamurai.tscomponents.model.Severity
 import com.tagsamurai.tscomponents.model.TypeChip
 import com.tagsamurai.tscomponents.shimmerEffect.ShimmerEffect
 import com.tagsamurai.tscomponents.textfield.UserRecord
-import com.tagsamurai.tscomponents.theme.LocalTheme
 import com.tagsamurai.tscomponents.theme.SP12
 import com.tagsamurai.tscomponents.theme.W400
 import com.tagsamurai.tscomponents.theme.W500
 import com.tagsamurai.tscomponents.theme.W600
+import com.tagsamurai.tscomponents.theme.theme
 import com.tagsamurai.tscomponents.utils.Spacer.heightBox
 import com.tagsamurai.tscomponents.utils.Spacer.widthBox
 import com.tagsamurai.tscomponents.utils.Utils.toDateFormatter
@@ -37,7 +37,6 @@ fun SupplierDetailHeader(
     uiState: SupplierDetailUiState,
     onClickAction: () -> Unit
 ) {
-    val theme = LocalTheme.current
     Column {
         Column(
             modifier = Modifier
@@ -63,7 +62,6 @@ private fun HeaderContent(
     supplierDetail: SupplierEntity,
     onClickAction: () -> Unit
 ) {
-    val theme = LocalTheme.current
     Column {
         Chip(
             label = supplierDetail.isActive,

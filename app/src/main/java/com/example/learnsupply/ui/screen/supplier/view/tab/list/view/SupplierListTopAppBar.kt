@@ -56,7 +56,6 @@ private fun SupplierListTopAppBar(
     var showDownloadDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showActiveDialog by remember { mutableStateOf(false) }
-//    var navigateToChangelog by remember { mutableStateOf(false) }
     var isActivate: Boolean? by remember { mutableStateOf(null) }
 
     val listMenu = getListMenu(uiState)
@@ -79,8 +78,8 @@ private fun SupplierListTopAppBar(
                         navigateTo(
                             NavigationRoute.ChangeLogScreen.route
                         )
-//                        navigateToChangelog = true
                     }
+
                     Menu.SELECT_ALL, Menu.UNSELECT_ALL -> cb.onToggleSelectAll()
                     Menu.OTHER -> showActionSheet = true
                     else -> Unit

@@ -1,6 +1,5 @@
 package com.example.learnsupply.ui.screen.detailsupplier.view.tab
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,7 +11,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.apiservices.data.model.supplier.SupplierEntity
 import com.example.learnsupply.R
 import com.example.learnsupply.ui.screen.addsupplier.view.AddSupplierDialog
-import com.example.learnsupply.ui.screen.detailsupplier.uistate.SupplierDetailUiState
 import com.example.learnsupply.ui.screen.detailsupplier.view.SupplierFilterDetailSheet
 import com.example.learnsupply.ui.screen.detailsupplier.viewmodel.SupplierDetailViewModel
 import com.example.learnsupply.ui.screen.supplier.component.DeleteItemDialog
@@ -95,7 +93,10 @@ fun SupplierActivitiesDetailAppBar(
         showDialog = showCreateDialog,
         id = itemId,
         onShowSnackBar = onShowSnackbar,
-        onSuccess = { viewmodel.getDetailSupplier() }
+        onSuccess = {
+            viewmodel.getDetailSupplier()
+            showActionSheet = false
+        }
     )
 
     DeleteItemDialog(

@@ -38,6 +38,7 @@ fun AddSupplierDialog(
             viewModel.init(id = id)
         }
     }
+
     AddSupplierDialog(
         showDialog = showDialog,
         uiState = uiState,

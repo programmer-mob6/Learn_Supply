@@ -60,7 +60,6 @@ fun SupplierItem(
         showMoreIcon = true,
         onClickAction = {
             showActionSheet = true
-//            cb.onShowActionSheet(true)
         }
     ) {
         Column {
@@ -71,13 +70,13 @@ fun SupplierItem(
             )
             itemGap4.heightBox()
             Text(
-                text = item.companyName,//item.name,
+                text = item.companyName,
                 style = titleStyle,
                 color = theme.bodyText
             )
             itemGap4.heightBox()
             Text(
-                text = "${item.city}, " + item.country,//item.name,
+                text = "${item.city}, " + item.country,
                 style = titleStyle,
                 color = theme.bodyText
             )
@@ -110,7 +109,7 @@ fun SupplierItem(
                         style = SP12.W400
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    UserRecord(username = item.pic) //data.manager.ifNullOrBlank { "" }
+                    UserRecord(username = item.pic)
                 }
 
             }

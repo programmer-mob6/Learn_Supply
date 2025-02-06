@@ -1,6 +1,5 @@
 package com.example.learnsupply.ui.screen.addsupplier.view
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,12 +41,10 @@ import com.tagsamurai.tscomponents.utils.Spacer.widthBox
 fun AddSuplierForm(
     uiState: AddSuplierUiState,
     onUpdateForm: (AddSupplierFormData) -> Unit,
-    onAddingSuppliedItem: () -> Unit, //AddSupplierSuppliedItem
+    onAddingSuppliedItem: () -> Unit,
     removingSuppliedItemById: (Int) -> Unit,
     onUpdateListSuppliedItem: (AddSupplierSuppliedItem) -> Unit
 ) {
-//    var suppliedItem by remember { mutableStateOf(1) }
-//    var textFieldIsError by remember { mutableStateOf(false) }
 
     var isReset by remember { mutableStateOf(false) }
 
@@ -55,7 +52,6 @@ fun AddSuplierForm(
         isReset = uiState.formData == AddSupplierFormData() && !isReset
     }
 
-    Log.d("AddSuplierForm", "${uiState.formData}")
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -70,8 +66,6 @@ fun AddSuplierForm(
                 title = stringResource(R.string.company_name),
                 value = uiState.formData.companyName,
                 onValueChange = { result ->
-//                    textFieldValue = newText
-//                    textFieldIsError = false
                     onUpdateForm(
                         uiState.formData.copy(
                             companyName = result
@@ -79,13 +73,13 @@ fun AddSuplierForm(
                     )
                 },
                 placeholder = "Enter company name",
-                textError = "Alias name cannot be empty",
+                textError = uiState.formError.companyName,
                 isError = uiState.formError.companyName != null,
                 maxChar = 30,
                 required = true
             )
             Button(
-                onClick = { onAddingSuppliedItem() }, //AddSupplierSuppliedItem(id = uiState.suppliedItemIndex)
+                onClick = { onAddingSuppliedItem() },
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(id = R.string.supplied_item),
                 type = TypeButton.OUTLINED,
@@ -93,7 +87,7 @@ fun AddSuplierForm(
             )
             uiState.formData.suppliedItem.forEach { item ->
                 Row(
-                    verticalAlignment = Alignment.Bottom
+                    verticalAlignment = Alignment.Top
                 ) {
                     Box(
                         Modifier.weight(3f)
@@ -113,10 +107,10 @@ fun AddSuplierForm(
                                 OptionData("Kulkas", "Kulkas"),
                                 OptionData("TV", "TV"),
                                 OptionData("AC", "AC"),
-                            ),//uiState.formOption.itemName,
+                            ),
                             placeHolder = stringResource(R.string.title_item_name),
                             value = item.itemName,
-                            title = stringResource(R.string.title_item_name),// + item.id,
+                            title = stringResource(R.string.title_item_name),
                             required = true,
                             isError = uiState.formError.itemName != null,
                             textError = uiState.formError.itemName
@@ -144,7 +138,7 @@ fun AddSuplierForm(
                                 OptionData("SFD-13817383", "SFD-13817383"),
                                 OptionData("SFD-13817382", "SFD-13817382"),
                                 OptionData("SFD-13817381", "SFD-13817381"),
-                            ),//uiState.formOption.itemSku,
+                            ),
                             placeHolder = stringResource(R.string.sku),
                             value = item.itemSku,
                             title = stringResource(R.string.sku),
@@ -152,16 +146,18 @@ fun AddSuplierForm(
                             isError = uiState.formError.itemSku != null,
                             textError = uiState.formError.itemSku,
                             isUseChip = true,
-//                            enabled = !uiState.formData.itemName.isNullOrBlank()
+                            enabled = item.itemName.isNotBlank()
                         )
                     }
-                    if (uiState.formData.suppliedItem.size > 1) { //suppliedItem > 1
+                    if (uiState.formData.suppliedItem.size > 1) {
                         10.widthBox()
                         Box(
                             Modifier.weight(1f)
                         ) {
                             Button(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 22.dp),
                                 type = TypeButton.OUTLINED,
                                 content = {
                                     Icon(
@@ -170,9 +166,8 @@ fun AddSuplierForm(
                                         contentDescription = "Subtract Supplied Item",
                                         modifier = Modifier.size(18.dp)
                                     )
-
                                 },
-                                onClick = { removingSuppliedItemById(item.id) } //suppliedItem -= 1
+                                onClick = { removingSuppliedItemById(item.id) }
                             )
                         }
                     }
@@ -193,13 +188,13 @@ fun AddSuplierForm(
                     OptionData("Singapore", "Singapore"),
                     OptionData("Malaysia", "Malaysia"),
                     OptionData("Thailand", "Thailand"),
-                ),//uiState.formOption.country,
+                ),
                 placeHolder = stringResource(R.string.country),
                 value = uiState.formData.country,
                 title = stringResource(R.string.country),
                 required = true,
-                isError = uiState.formError.itemName != null,
-                textError = uiState.formError.itemName
+                isError = uiState.formError.country != null,
+                textError = uiState.formError.country
             )
             SingleSelector(
                 onValueChange = { result ->
@@ -214,13 +209,13 @@ fun AddSuplierForm(
                     OptionData("Jawa Barat", "Jawa Barat"),
                     OptionData("Jawa Tengah", "Jawa Tengah"),
                     OptionData("Jawa Timur", "Jawa Timur"),
-                ),//uiState.formOption.state,
+                ),
                 placeHolder = stringResource(R.string.state),
                 value = uiState.formData.state,
                 title = stringResource(R.string.state),
                 required = true,
-                isError = uiState.formError.itemName != null,
-                textError = uiState.formError.itemName
+                isError = uiState.formError.state != null,
+                textError = uiState.formError.state
             )
             SingleSelector(
                 onValueChange = { result ->
@@ -235,13 +230,13 @@ fun AddSuplierForm(
                     OptionData("Jakarta Selatan", "Jakarta Selatan"),
                     OptionData("Jakarta Barat", "Jakarta Barat"),
                     OptionData("Jakarta Timur", "Jakarta Timur"),
-                ),//uiState.formOption.city,
+                ),
                 placeHolder = stringResource(R.string.city),
                 value = uiState.formData.city,
                 title = stringResource(R.string.city),
                 required = true,
-                isError = uiState.formError.itemName != null,
-                textError = uiState.formError.itemName
+                isError = uiState.formError.city != null,
+                textError = uiState.formError.city
             )
             NumberTextField(
                 title = stringResource(R.string.zip_code),
@@ -254,7 +249,8 @@ fun AddSuplierForm(
                     )
                 },
                 placeholder = "Enter ZIP Code",
-                textError = "Alias name cannot be empty",
+                isError = uiState.formError.zip != null,
+                textError = uiState.formError.zip,
                 required = true
             )
             TextField(
@@ -268,9 +264,9 @@ fun AddSuplierForm(
                     )
                 },
                 placeholder = "Enter company address",
-                textError = "Alias name cannot be empty",
+                textError = uiState.formError.companyAddress,
                 isError = uiState.formError.companyAddress != null,
-                maxChar = 30,
+                maxChar = 120,
                 required = true
             )
             val phoneCompany = uiState.formData.companyNumber.split(" ")
@@ -287,7 +283,7 @@ fun AddSuplierForm(
                 value = phoneCompany.last(),
                 title = stringResource(R.string.company_phone_number),
                 placeholder = "Enter company phone number",
-                textError = "Alias name cannot be empty",
+                textError = uiState.formError.companyNumber,
                 isError = uiState.formError.companyNumber != null,
                 required = true
             )
@@ -302,7 +298,7 @@ fun AddSuplierForm(
                     )
                 },
                 placeholder = "Enter PIC Name",
-                textError = "Alias name cannot be empty",
+                textError = uiState.formError.picName,
                 isError = uiState.formError.picName != null,
                 maxChar = 30,
                 required = true
@@ -322,7 +318,7 @@ fun AddSuplierForm(
                 value = phonePic.last(),
                 title = stringResource(R.string.pic_contact_number),
                 placeholder = "Enter PIC Contact Number",
-                textError = "Alias name cannot be empty",
+                textError = uiState.formError.picNumber,
                 isError = uiState.formError.picNumber != null,
                 required = true
             )
@@ -339,7 +335,7 @@ fun AddSuplierForm(
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
                 placeholder = "Enter PIC Email",
-                textError = "Alias name cannot be empty",
+                textError = uiState.formError.picEmail,
                 isError = uiState.formError.picEmail != null,
                 maxChar = 30,
                 required = true

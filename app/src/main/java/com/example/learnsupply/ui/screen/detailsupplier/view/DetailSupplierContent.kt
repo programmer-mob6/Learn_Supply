@@ -16,8 +16,6 @@ import com.example.learnsupply.ui.screen.supplier.view.tab.activies.SupplierActi
 
 @Composable
 fun DetailSupplierContent(
-    navigateTo: (String) -> Unit,
-    onShowSnackbar: (String, Boolean) -> Unit,
     viewModel: SupplierDetailViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -44,10 +42,7 @@ fun DetailSupplierContent(
         ) {
             when (it) {
                 0 -> {
-                    SupplierActivitiesContent(
-                        navigateTo = navigateTo,
-                        onShowSnackBar = onShowSnackbar
-                    )
+                    SupplierActivitiesContent()
                 }
             }
         }

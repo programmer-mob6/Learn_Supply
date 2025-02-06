@@ -64,7 +64,6 @@ fun SupplierDetailBottomSheet(
                         style = SP12.W500,
                         color = theme.buttonPrimary,
                         modifier = Modifier.clickable {
-//                            onClickAction()
                             showSuppliedItem = true
                         }
                     )

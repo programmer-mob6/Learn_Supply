@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.learnsupply.ui.screen.changelog.model.ChangeLogCallback
 import com.example.learnsupply.ui.screen.changelog.uistate.ChangeLogUiState
-import com.example.learnsupply.ui.screen.supplier.view.tab.list.view.listsection.SupplierItem
 import com.example.learnsupply.ui.screen.supplier.view.tab.list.view.listsection.SupplierLoadingItem
 import com.tagsamurai.tscomponents.loading.LoadingOverlay
 import com.tagsamurai.tscomponents.pullrefresh.PullRefresh
@@ -48,9 +47,7 @@ fun ChangeLogListSection(
                     ) {
                         items(uiState.item.size) { index ->
                             ChangeLogItem(
-//                                uiState = uiState,
                                 item = uiState.item[index],
-//                                cb = cb
                             )
                         }
                     }
