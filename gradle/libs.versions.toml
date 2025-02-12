@@ -25,7 +25,6 @@ mockk = "1.13.10"
 coroutinesTest = "1.7.3"
 coreTesting = "2.2.0"
 kover = "0.7.5"
-mockwebserver = "4.9.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -60,7 +59,6 @@ truth-java8-extension = { module = "com.google.truth.extensions:truth-java8-exte
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
-mockwebserver  = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
 
 # Coroutines
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
