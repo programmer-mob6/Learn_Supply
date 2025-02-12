@@ -37,7 +37,7 @@ class SupplierDetailViewModel @Inject constructor(
         )
     }
 
-    private fun deleteSupplier() {
+    fun deleteSupplier() {
         _uiState.value = _uiState.value.copy(isLoadingOverlay = true)
 
         val body = DeleteSupplierRequestBody(
@@ -102,7 +102,7 @@ class SupplierDetailViewModel @Inject constructor(
         }
     }
 
-    private fun resetMessageState() {
+    fun resetMessageState() {
         _uiState.value = _uiState.value.copy(
             deleteState = null
         )

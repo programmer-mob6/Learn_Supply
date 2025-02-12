@@ -16,10 +16,8 @@ data class ChangeLogUiState(
 
     val downloadState: Boolean? = null,
 
-    val changeLogDefault: List<ChangeLogEntity> = emptyList(),
-    val item: List<ChangeLogEntity> = emptyList(),
-
-    ) {
+    val item: List<ChangeLogEntity> = emptyList()
+) {
     val queryParams
         get() = GetChangeLogQueryParams(
             search = searchQuery.ifBlank { null },

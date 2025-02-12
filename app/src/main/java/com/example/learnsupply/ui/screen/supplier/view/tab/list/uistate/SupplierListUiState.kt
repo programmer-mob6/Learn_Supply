@@ -9,23 +9,21 @@ import com.tagsamurai.tscomponents.utils.Utils
 data class SupplierListUiState(
     val isLoading: Boolean = false,
     val isLoadingOverlay: Boolean = false,
-
     val isAllSelected: Boolean = false,
+
     val itemSelected: List<SupplierEntity> = emptyList(),
     val searchQuery: String = "",
 
     val filterData: SupplierFilterData = SupplierFilterData(),
     val filterOption: SupplierFilterOption = SupplierFilterOption(),
 
-    val supplierDefault: List<SupplierEntity> = emptyList(),
     val item: List<SupplierEntity> = emptyList(),
+
     val downloadState: Boolean? = null,
     val deleteState: Boolean? = null,
     val activateState: Boolean? = null,
     val editState: Boolean? = null,
     val activation: Boolean? = null,
-
-    val showActonSheet: Boolean = false
 
 ) {
     val queryParams

@@ -12,9 +12,8 @@ data class AddSupplierFormError(
     val companyNumber: String? = null,
     val picName: String? = null,
     val picNumber: String? = null,
-    val picEmail: String? = null,
-
-    ) {
+    val picEmail: String? = null
+) {
     fun hasError(): Boolean {
         return companyName != null ||
                 itemName != null ||

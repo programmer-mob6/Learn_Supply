@@ -56,7 +56,6 @@ class SupplierListViewModel @Inject constructor(
             onUpdateItemSelected = ::updateItemSelected,
             onResetSelect = ::onResetSelect,
             onUpdateActiveById = ::onUpdateActiveById,
-            onShowActionSheet = ::onShowActionSheet,
             onResetMessageState = ::resetMessageState
         )
     }
@@ -94,11 +93,6 @@ class SupplierListViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
-    }
-
-
-    private fun onShowActionSheet(show: Boolean) {
-        _uiState.update { it.copy(showActonSheet = show) }
     }
 
     fun onResetSelect() {
@@ -294,7 +288,6 @@ class SupplierListViewModel @Inject constructor(
                 is Result.Success -> {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        supplierDefault = result.data,
                         item = result.data
                     )
                 }

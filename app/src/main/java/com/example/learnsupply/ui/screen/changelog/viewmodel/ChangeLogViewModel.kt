@@ -118,7 +118,6 @@ class ChangeLogViewModel @Inject constructor(
                 is Result.Success -> {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        changeLogDefault = result.data,
                         item = result.data
                     )
                 }
